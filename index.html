@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scale & Species: The Ladder and Armendaris Ranches</title>
+    <meta name="description" content="An interactive infographic exploring the immense scale, diverse ecosystems, and critical wildlife conservation efforts of the Ladder and Armendaris Ranches in New Mexico.">
+    
+    <!-- Global Diagnostic Error Catcher -->
+    <script>
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error("Global Error Captured:", message, "at", source, ":", lineno);
+            const errDiv = document.createElement('div');
+            errDiv.style.cssText = 'position:fixed; top:0; left:0; width:100%; z-index:999999; background:#eb2f06; color:#fff; padding:15px 20px; font-family:sans-serif; font-size:14px; font-weight:bold; box-shadow:0 4px 15px rgba(0,0,0,0.5); text-align:center;';
+            errDiv.innerHTML = "⚠️ Diagnostic Error: " + message + " (Line " + lineno + " in " + (source ? source.split('/').pop() : 'unknown') + ")";
+            document.body.appendChild(errDiv);
+            return false;
+        };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet.js Mapping Library CSS (Simplified CDN to prevent SRI blocking) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body>
+
+    <!-- HERO SECTION -->
+    <header class="hero" style="background-image: linear-gradient(to bottom, rgba(12, 12, 20, 0.4), rgba(12, 12, 20, 0.95)), url('hero_bg.png');">
+        <div class="container hero-container">
+            <span class="badge">New Mexico's Ecological Treasures</span>
+            <h1 id="main-heading">Scale & Species</h1>
+            <p class="subtitle">Inside the Ladder and Armendaris Ranches</p>
+            
+            <p class="intro-text">
+                Spanning vast stretches of southern New Mexico, the Ladder and Armendaris Ranches represent some of the most ambitious conservation and restoration efforts in North America. These expansive wildlands serve as dedicated sanctuaries where native species are brought back from the brink and entire desert, mountain, and riparian ecosystems are restored for future generations.
+            </p>
+
+            <!-- Quick Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card glass-card">
+                    <div class="stat-icon-wrapper">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M3 3h18v18H3zM3 9h18M9 21V9M15 21V9M3 15h18" stroke-dasharray="2 2" />
+                            <rect x="5" y="5" width="14" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">516,439</div>
+                    <div class="stat-label">Combined Acres</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon-wrapper">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                        </svg>
+                    </div>
+                    <div class="stat-value">807</div>
+                    <div class="stat-label">Square Miles of Wilderness</div>
+                </div>
+                <div class="stat-card glass-card">
+                    <div class="stat-icon-wrapper">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <div class="stat-value">6+</div>
+                    <div class="stat-label">Species Recovery Programs</div>
+                </div>
+            </div>
+            
+            <a href="#size-visualizer" class="scroll-indicator">
+                <span>Explore the Scale</span>
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- SIZE COMPARISON VISUALIZER -->
+    <section id="size-visualizer" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Visualizing Scale</span>
+                <h2>How Big is 516,439 Acres?</h2>
+                <p>Compare the real geographic footprint of the Ladder and Armendaris Ranches to well-known cities, regions, and countries using interactive spatial overlays.</p>
+            </div>
+
+            <div class="visualizer-wrapper glass-card">
+                <div class="visualizer-controls">
+                    <h3>Compare With:</h3>
+                    <div class="comparison-tabs">
+                        <button class="tab-btn active" data-compare="rhode-island">Rhode Island</button>
+                        <button class="tab-btn" data-compare="nyc">New York City</button>
+                        <button class="tab-btn" data-compare="denver">Denver</button>
+                        <button class="tab-btn" data-compare="yellowstone">Yellowstone</button>
+                        <button class="tab-btn" data-compare="sf-bay-area">SF Bay Area</button>
+                        <button class="tab-btn" data-compare="new-mexico">True Location</button>
+                    </div>
+
+                    <div class="comparison-facts">
+                        <h4 id="comparison-title">Ranches vs. Rhode Island</h4>
+                        <p id="comparison-description">
+                            The combined ranches cover about 807 square miles of land. This represents approximately <strong>78%</strong> of the entire land area of Rhode Island (1,034 sq mi). Rather than housing over 1 million residents, this territory is dedicated to pristine habitat, bison herds, and endangered species recovery.
+                        </p>
+                        <div class="fact-highlight">
+                            <span class="fact-icon">💡</span>
+                            <span id="comparison-fun-fact">It would take only 1.3 copies of these ranches to completely cover the smallest US state!</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leaflet.js Map Container -->
+                <div class="visualizer-display">
+                    <div id="map" style="width: 100%; height: 100%; z-index: 1;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RANCH PROFILES (THE ECOLOGICAL ANCHORS) -->
+    <section id="ranch-profiles" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Sanctuary Profiles</span>
+                <h2>The Two Anchors</h2>
+                <p>While close geographically, these two properties host vastly different landscapes and biological niches.</p>
+            </div>
+
+            <div class="profiles-grid">
+                <!-- Armendaris Card -->
+                <div class="profile-card glass-card">
+                    <div class="profile-badge">Armendaris Ranch</div>
+                    <div class="profile-meta">
+                        <div class="profile-stat">
+                            <span class="val">360,000</span>
+                            <span class="lbl">Acres</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="val">Desert</span>
+                            <span class="lbl">Ecosystem</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="profile-title">Chihuahuan Desert & Volcanic Flows</h3>
+                    <p class="profile-description">
+                        Stretching for nearly 50 miles along the historic Rio Grande, the Armendaris Ranch is a landscape of stark, dramatic beauty. It encompasses the entirety of the Fra Cristobal Mountain Range and includes the ancient Jornada lava field.
+                    </p>
+
+                    <ul class="profile-bullets">
+                        <li>
+                            <span class="bullet-icon">🏔️</span>
+                            <strong>Fra Cristobal Mountains:</strong> Home to reintroduced desert bighorn sheep.
+                        </li>
+                        <li>
+                            <span class="bullet-icon">🌋</span>
+                            <strong>Jornada Lava Tube:</strong> Hosts millions of Mexican free-tailed bats in the summer.
+                        </li>
+                        <li>
+                            <span class="bullet-icon">🌊</span>
+                            <strong>Rio Grande Corridor:</strong> A critical migratory flyway for hundreds of bird species.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Ladder Card -->
+                <div class="profile-card glass-card">
+                    <div class="profile-badge badge-alt">Ladder Ranch</div>
+                    <div class="profile-meta">
+                        <div class="profile-stat">
+                            <span class="val">156,439</span>
+                            <span class="lbl">Acres</span>
+                        </div>
+                        <div class="profile-stat">
+                            <span class="val">Riparian</span>
+                            <span class="lbl">Ecosystem</span>
+                        </div>
+                    </div>
+                    
+                    <h3 class="profile-title">Mountain Foothills & Riparian Canyons</h3>
+                    <p class="profile-description">
+                        Nestled in the eastern foothills of the Black Range, the Ladder Ranch is a rich tapestry of pine forests, desert grasslands, and canyons bisected by four major stream systems: Animas, Seco, Palomas, and Cuchillo.
+                    </p>
+
+                    <ul class="profile-bullets">
+                        <li>
+                            <span class="bullet-icon">🌲</span>
+                            <strong>Black Range Foothills:</strong> Elevation changes that support diverse flora and fauna.
+                        </li>
+                        <li>
+                            <span class="bullet-icon">💧</span>
+                            <strong>Las Animas Creek:</strong> Pure riparian habitat supporting native fish and amphibian programs.
+                        </li>
+                        <li>
+                            <span class="bullet-icon">🐺</span>
+                            <strong>Mexican Gray Wolf Facility:</strong> Premier pre-release site helping wolves adapt to the wild.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THREATS & DEVELOPMENT PRESSURES (PITCH SECTION) -->
+    <section id="threats-pressures" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Urgency & Pressures</span>
+                <h2>Threats to the Wildlands</h2>
+                <p>Following the passing of Ted Turner, the future of these legacy ranches represents a critical turning point. Without permanent, long-term conservation agreements, these fragile ecosystems face several mounting pressures.</p>
+            </div>
+
+            <div class="threats-grid">
+                <div class="threat-card glass-card">
+                    <div class="threat-icon">💧</div>
+                    <h3>Water Scarcity & Climate Change</h3>
+                    <p>
+                        The Rio Grande (critical for the Armendaris) and the mountain streams of the Ladder are experiencing severe water stress. Declining snowpacks and prolonged desert droughts dry up crucial riparian corridors, threatening native fish and amphibians like the Chiricahua leopard frog.
+                    </p>
+                </div>
+
+                <div class="threat-card glass-card">
+                    <div class="threat-icon">🚧</div>
+                    <h3>Fragmentation & Subdivision Sprawl</h3>
+                    <p>
+                        Legacy ranches in the American West are vulnerable to subdivision, commercial sale, and parcel fragmentation. While parts of the Armendaris have conservation easements, the long-term integrity of both ranches requires comprehensive protection to prevent sprawl.
+                    </p>
+                </div>
+
+                <div class="threat-card glass-card">
+                    <div class="threat-icon">⚡</div>
+                    <h3>Infrastructure & Grid Corridors</h3>
+                    <p>
+                        Proposed energy transmission lines and utility corridors frequently cross southern New Mexico. Cutting these utility paths through pristine grasslands segments wildlife habitats, cutting off migration paths for pronghorn, bison, and bighorn sheep.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="pitch-banner glass-card">
+                <div class="pitch-content">
+                    <h3>A Sanctuary System Worth Securing</h3>
+                    <p>
+                        The Ladder and Armendaris ranches form a vast, contiguous wildlife corridor that cannot be replicated. Protecting these lands as single-block reserves is one of our most effective buffers against habitat loss, climate stress, and regional biodiversity decline.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIES CONSERVATION GRID -->
+    <section id="conservation-grid" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Conservation Impact</span>
+                <h2>Pioneering Wildlife Recovery</h2>
+                <p>Click on any conservation program below to reveal details, metrics, and ecological facts about these species.</p>
+            </div>
+
+            <div class="species-grid">
+                <!-- 1. Mexican Gray Wolf -->
+                <div class="species-card glass-card" data-species="wolf">
+                    <div class="species-header">
+                        <div class="species-icon">🐺</div>
+                        <h3>Mexican Gray Wolf</h3>
+                    </div>
+                    <div class="species-stat-preview">
+                        <span class="number">25</span>
+                        <span class="label">Wolf Pre-release Capacity</span>
+                    </div>
+                    <p class="short-desc">Host of the world's premier pre-release facility, helping recover a population that was once extinct in the wild.</p>
+                    
+                    <!-- Hidden Detail Panel -->
+                    <div class="species-details">
+                        <div class="details-divider"></div>
+                        <h4>The Recovery Process</h4>
+                        <p>
+                            Since 1997, the Ladder Ranch has run a specialized captive breeding and pre-release site. The facility helps wolves transition between captivity and the wild, teaching them to pack up and hunt natural prey before they are released into the wild.
+                        </p>
+                        <div class="species-metric-box">
+                            <div>
+                                <span class="m-val">319+</span>
+                                <span class="m-lbl">Wild Wolves in SW (2025)</span>
+                            </div>
+                            <div>
+                                <span class="m-val">1997</span>
+                                <span class="m-lbl">Program Launch Year</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="expand-btn">Read More <span class="arrow">↓</span></button>
+                </div>
+
+                <!-- 2. Mexican Free-tailed Bats -->
+                <div class="species-card glass-card" data-species="bats">
+                    <div class="species-header">
+                        <div class="species-icon">🦇</div>
+                        <h3>Jornada Bat Caves</h3>
+                    </div>
+                    <div class="species-stat-preview">
+                        <span class="number">1.6M+</span>
+                        <span class="label">Summer Bat Population</span>
+                    </div>
+                    <p class="short-desc">A subterranean lava tube colony that swells to millions of bats, providing massive insect control for local agriculture.</p>
+                    
+                    <!-- Hidden Detail Panel -->
+                    <div class="species-details">
+                        <div class="details-divider"></div>
+                        <h4>A Subterranean Sanctuary</h4>
+                        <p>
+                            Formed by ancient volcanic activity on the Armendaris Ranch, the Jornada lava tubes host one of North America's largest summer colonies of Mexican free-tailed bats. Peak migration numbers can reach up to 5 to 8 million bats, consuming tons of insects nightly.
+                        </p>
+                        <div class="species-metric-box">
+                            <div>
+                                <span class="m-val">5M-8M</span>
+                                <span class="m-lbl">Peak Migration Occupancy</span>
+                            </div>
+                            <div>
+                                <span class="m-val">Tons</span>
+                                <span class="m-lbl">Insects Consumed Daily</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="expand-btn">Read More <span class="arrow">↓</span></button>
+                </div>
+
+                <!-- 3. Bolson Tortoise -->
+                <div class="species-card glass-card" data-species="tortoise">
+                    <div class="species-header">
+                        <div class="species-icon">🐢</div>
+                        <h3>Bolson Tortoise</h3>
+                    </div>
+                    <div class="species-stat-preview">
+                        <span class="number">800+</span>
+                        <span class="label">Tortoises Under Stewardship</span>
+                    </div>
+                    <p class="short-desc">Repatriating North America's largest land tortoise to its prehistoric range after 10,000 years of absence.</p>
+                    
+                    <!-- Hidden Detail Panel -->
+                    <div class="species-details">
+                        <div class="details-divider"></div>
+                        <h4>Repatriation & Growth</h4>
+                        <p>
+                            Once native to New Mexico, the Bolson tortoise vanished from the US at the end of the Pleistocene epoch. In 2006, conservationists brought 30 adults from Mexico. Through breeding and juvenile head-start enclosures, the herd has grown to over 800 tortoises.
+                        </p>
+                        <div class="species-metric-box">
+                            <div>
+                                <span class="m-val">>80%</span>
+                                <span class="m-lbl">Juvenile Release Survival</span>
+                            </div>
+                            <div>
+                                <span class="m-val">150+</span>
+                                <span class="m-lbl">Released in Wild Pastures</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="expand-btn">Read More <span class="arrow">↓</span></button>
+                </div>
+
+                <!-- 4. Desert Bighorn Sheep -->
+                <div class="species-card glass-card" data-species="sheep">
+                    <div class="species-header">
+                        <div class="species-icon">🐏</div>
+                        <h3>Desert Bighorn Sheep</h3>
+                    </div>
+                    <div class="species-stat-preview">
+                        <span class="number">230+</span>
+                        <span class="label">Mountain Herd Population</span>
+                    </div>
+                    <p class="short-desc">The successful recovery of bighorn sheep in the Fra Cristobal range, acting as a source for regional repopulation.</p>
+                    
+                    <!-- Hidden Detail Panel -->
+                    <div class="species-details">
+                        <div class="details-divider"></div>
+                        <h4>Scaling the Cliffs</h4>
+                        <p>
+                            Introduced to the isolated Fra Cristobal Mountains on the Armendaris Ranch, this population thrived in the rugged limestone crags. Its dramatic recovery was a key catalyst in state biologists delisting the species from New Mexico's endangered list in 2011.
+                        </p>
+                        <div class="species-metric-box">
+                            <div>
+                                <span class="m-val">2011</span>
+                                <span class="m-lbl">State Delisting Achieved</span>
+                            </div>
+                            <div>
+                                <span class="m-val">Source</span>
+                                <span class="m-lbl">For State Reintroductions</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="expand-btn">Read More <span class="arrow">↓</span></button>
+                </div>
+
+                <!-- 5. Chiricahua Leopard Frog -->
+                <div class="species-card glass-card" data-species="frog">
+                    <div class="species-header">
+                        <div class="species-icon">🐸</div>
+                        <h3>Leopard Frog Recovery</h3>
+                    </div>
+                    <div class="species-stat-preview">
+                        <span class="number">20+</span>
+                        <span class="label">Years of Captive Breeding</span>
+                    </div>
+                    <p class="short-desc">Rescuing a highly threatened southwestern frog via predator-free breeding tanks and spring releases.</p>
+                    
+                    <!-- Hidden Detail Panel -->
+                    <div class="species-details">
+                        <div class="details-divider"></div>
+                        <h4>Safe Haven Breeding</h4>
+                        <p>
+                            To protect threatened Chiricahua leopard frogs from non-native bullfrogs and disease, the Ladder Ranch established a refugium. Biologists raise egg masses in secure outdoor tanks, headstarting thousands of tadpoles and frogs to stock wild creeks and springs.
+                        </p>
+                        <div class="species-metric-box">
+                            <div>
+                                <span class="m-val">Tadpoles</span>
+                                <span class="m-lbl">Main Breeding Target</span>
+                            </div>
+                            <div>
+                                <span class="m-val">Refugia</span>
+                                <span class="m-lbl">On-Site Protection Tanks</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="expand-btn">Read More <span class="arrow">↓</span></button>
+                </div>
+
+                <!-- 6. Rio Grande Cutthroat Trout -->
+                <div class="species-card glass-card" data-species="trout">
+                    <div class="species-header">
+                        <div class="species-icon">🐟</div>
+                        <h3>Rio Grande Cutthroat</h3>
+                    </div>
+                    <div class="species-stat-preview">
+                        <span class="number">Native</span>
+                        <span class="label">Las Animas Stream Restoration</span>
+                    </div>
+                    <p class="short-desc">Restoring miles of mountain streams to secure populations of New Mexico's state fish.</p>
+                    
+                    <!-- Hidden Detail Panel -->
+                    <div class="species-details">
+                        <div class="details-divider"></div>
+                        <h4>Restoring Clean Waters</h4>
+                        <p>
+                            Las Animas Creek on the Ladder Ranch provides the cold, clean water needed by New Mexico’s native cutthroat trout. Conservation efforts involve removing non-native competitors and managing stream banks to support natural spawning and aquatic insect diversity.
+                        </p>
+                        <div class="species-metric-box">
+                            <div>
+                                <span class="m-val">Animas</span>
+                                <span class="m-lbl">Primary Creek Restoration</span>
+                            </div>
+                            <div>
+                                <span class="m-val">State Fish</span>
+                                <span class="m-lbl">Rio Grande Cutthroat</span>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="expand-btn">Read More <span class="arrow">↓</span></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="footer-logo">
+                <span class="icon">🌿</span>
+                <span class="text">Scale & Species</span>
+            </div>
+            
+            <p class="footer-text">
+                The massive footprints of the Ladder and Armendaris ranches prove that large-scale habitat protection is one of our most effective tools for preserving biodiversity. By restoring wild stream networks, protecting ancient volcanic caves, and rebuilding self-sustaining animal populations, these New Mexico reserves provide a concrete model for the future of conservation on our planet.
+            </p>
+            
+            <div class="footer-links">
+                <a href="https://tesf.org" target="_blank" rel="noopener">Turner Endangered Species Fund</a>
+                <a href="https://www.nmlandconservancy.org" target="_blank" rel="noopener">NM Land Conservancy</a>
+                <a href="https://tedturnerreserves.com" target="_blank" rel="noopener">Ted Turner Reserves</a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2026 Conservation Infographic Page. Built in partnership for New Mexico's wildlands.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Leaflet.js Mapping Library JS (Simplified CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    
+    <!-- Georeferenced Coordinates Data (Loaded synchronously to prevent CORS blocks) -->
+    <script src="boundaries.js?v=8"></script>
+    
+    <!-- Main JavaScript Logic -->
+    <script src="script.js?v=8"></script>
+</body>
+</html>
