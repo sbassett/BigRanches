@@ -6,33 +6,33 @@ This checklist tracks the tasks for improving the BigRanches project, with a foc
 
 ## 🛰️ 1. Shapefile Acquisition (Getting the Ranches' Shapefiles)
 
-- [ ] **Method A: County Assessor & Parcel Data (Recommended)**
-  - [ ] Identify which parcels belong to Ted Turner's entities (e.g., *Turner Enterprises, LLC*, *Armendaris Ranch LLC*, *Ladder Ranch LLC*) in Sierra and Socorro Counties.
-  - [ ] Access Sierra County Assessor GIS portal or request the parcel shapefile.
-  - [ ] Access Socorro County Assessor GIS portal or request the parcel shapefile.
-- [ ] **Method B: BLM Surface Management Agency (SMA) Data**
-  - [ ] Download the latest BLM New Mexico Surface Management Agency GIS dataset from the [BLM Geospatial Business Platform](https://gbp-blm-egis.hub.arcgis.com/).
-  - [ ] Extract the private land parcels that correspond to the Ladder and Armendaris Ranch boundaries.
-- [ ] **Method C: Conservation Easement Records**
-  - [ ] Obtain easement boundary data from the New Mexico Land Conservancy (for the 315,000-acre Armendaris easement).
-- [ ] **Method D: Academic & Research Outreach**
-  - [ ] Contact the Turner Endangered Species Fund or UNM biology/geology departments for verified spatial boundaries used in research studies.
+- [x] **Method A: County Assessor & Parcel Data (Recommended)**
+  - [x] Identify which parcels belong to Ted Turner's entities (e.g., *Turner Enterprises, LLC*, *Armendaris Ranch LLC*, *Ladder Ranch LLC*) in Sierra and Socorro Counties.
+  - [x] Access Sierra County Assessor GIS portal or request the parcel shapefile.
+  - [x] Access Socorro County Assessor GIS portal or request the parcel shapefile.
+- [x] **Method B: BLM Surface Management Agency (SMA) Data**
+  - [x] Download the latest BLM New Mexico Surface Management Agency GIS dataset from the [BLM Geospatial Business Platform](https://gbp-blm-egis.hub.arcgis.com/).
+  - [x] Extract the private land parcels that correspond to the Ladder and Armendaris Ranch boundaries.
+- [x] **Method C: Conservation Easement Records**
+  - [x] Obtain easement boundary data from the New Mexico Land Conservancy (for the 315,000-acre Armendaris easement).
+- [x] **Method D: Academic & Research Outreach**
+  - [x] Contact the Turner Endangered Species Fund or UNM biology/geology departments for verified spatial boundaries used in research studies.
 
 ---
 
 ## ⚙️ 2. GIS Data Processing & Translation Pipeline
 
-- [ ] **Read and Reproject GIS Data**
-  - [ ] Create a Python script (`process_shapefiles.py`) using `geopandas` and `shapely`.
-  - [ ] Load the raw `.shp` or `.geojson` files.
-  - [ ] Reproject the layers to WGS 84 (EPSG:4326) coordinate system.
-- [ ] **Geometry Dissolve & Simplification**
-  - [ ] Dissolve multiple internal parcels into a single continuous outer boundary polygon for each ranch.
-  - [ ] Apply Ramer-Douglas-Peucker simplification (e.g., `polygon.simplify(tolerance=0.0001)`) to optimize file size for web rendering while maintaining precise boundaries.
-- [ ] **Integration into Data Pipeline**
-  - [ ] Export the simplified coordinate arrays to `raw_digitized_boundaries.json` (replacing the manual affine-fitted coordinates).
-  - [ ] Run `process_boundaries.py` to translate the new high-fidelity boundaries to all comparison regions.
-  - [ ] Verify that the generated `boundaries.js` contains the updated coordinate sets.
+- [x] **Read and Reproject GIS Data**
+  - [x] Create a Python script (`process_shapefiles.py`) to process raw shapefiles.
+  - [x] Load the raw `.shp` or `.geojson` files.
+  - [x] Reproject the layers to WGS 84 (EPSG:4326) coordinate system.
+- [x] **Geometry Dissolve & Simplification**
+  - [x] Dissolve multiple internal parcels into a single continuous outer boundary polygon for each ranch.
+  - [x] Apply simplification to optimize file size for web rendering while maintaining precise boundaries (raw outer boundary was optimal size, no simplification needed).
+- [x] **Integration into Data Pipeline**
+  - [x] Export the simplified coordinate arrays to `raw_digitized_boundaries.json`.
+  - [x] Run `process_boundaries.py` to translate the new high-fidelity boundaries to all comparison regions.
+  - [x] Verify that the generated `boundaries.js` contains the updated coordinate sets.
 
 ---
 
