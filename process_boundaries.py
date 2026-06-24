@@ -106,26 +106,45 @@ sf_bay_area_raw = [
     [-122.95, 38.30]
 ]
 
+def wgs84_to_mercator(lon, lat):
+    R = 6378137.0
+    x = math.radians(lon) * R
+    y = math.log(math.tan(math.pi / 4.0 + math.radians(lat) / 2.0)) * R
+    return x, y
+
+def mercator_to_wgs84(x, y):
+    R = 6378137.0
+    lon = math.degrees(x / R)
+    lat = math.degrees(2.0 * math.atan(math.exp(y / R)) - math.pi / 2.0)
+    return lon, lat
+
 def translate_ranches_to_target(comp_coords):
     # Calculate centroid of the target comparison region
     comp_lon, comp_lat = calculate_centroid(comp_coords[:-1] if comp_coords[0] == comp_coords[-1] else comp_coords)
     
-    # Calculate scale factor to preserve physical width (meters) across different latitudes
-    # 1 degree of longitude = 111.32 km * cos(latitude)
+    # Calculate scale factor to preserve physical area and shape dimensions (meters) across different latitudes
     scale_factor = math.cos(math.radians(RANCHES_CENTROID_LAT)) / math.cos(math.radians(comp_lat))
     
-    # Translate both Armendaris and Ladder using the exact same translation vector (rigid block shift) scaled for local latitude
+    # Project New Mexico centroid and target centroid to Web Mercator
+    cx_merc, cy_merc = wgs84_to_mercator(RANCHES_CENTROID_LON, RANCHES_CENTROID_LAT)
+    tx_merc, ty_merc = wgs84_to_mercator(comp_lon, comp_lat)
+    
+    # Translate both Armendaris and Ladder using exact Web Mercator isotropic scaling
     armendaris_trans = []
     for pt in armendaris_coords:
-        new_lon = (pt[0] - RANCHES_CENTROID_LON) * scale_factor + comp_lon
-        new_lat = (pt[1] - RANCHES_CENTROID_LAT) + comp_lat
-        armendaris_trans.append([new_lon, new_lat])
+        px, py = wgs84_to_mercator(pt[0], pt[1])
+        dx = (px - cx_merc) * scale_factor
+        dy = (py - cy_merc) * scale_factor
+        new_lon, new_lat = mercator_to_wgs84(dx + tx_merc, dy + ty_merc)
+        armendaris_trans.append([round(new_lon, 6), round(new_lat, 6)])
         
     ladder_trans = []
     for pt in ladder_coords:
-        new_lon = (pt[0] - RANCHES_CENTROID_LON) * scale_factor + comp_lon
-        new_lat = (pt[1] - RANCHES_CENTROID_LAT) + comp_lat
-        ladder_trans.append([new_lon, new_lat])
+        px, py = wgs84_to_mercator(pt[0], pt[1])
+        dx = (px - cx_merc) * scale_factor
+        dy = (py - cy_merc) * scale_factor
+        new_lon, new_lat = mercator_to_wgs84(dx + tx_merc, dy + ty_merc)
+        ladder_trans.append([round(new_lon, 6), round(new_lat, 6)])
         
     return armendaris_trans, ladder_trans
 

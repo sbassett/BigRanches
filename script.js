@@ -6,32 +6,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const comparisonData = {
         'rhode-island': {
             title: "Ranches vs. Rhode Island",
-            description: "The combined ranches cover about 807 square miles of land. This represents approximately <strong>78%</strong> of the entire land area of Rhode Island (1,034 sq mi). Rather than housing over 1 million residents, this territory is dedicated to pristine habitat, bison herds, and endangered species recovery.",
-            funFact: "It would take only 1.3 copies of these ranches to completely cover the smallest US state!",
+            description: "The combined Ranches cover about 807 square miles of land. This represents approximately <strong>78%</strong> of the entire land area of Rhode Island (1,034 sq mi). Rather than housing over 1 million residents, this territory is dedicated to pristine habitat, bison herds, and endangered species recovery.",
+            funFact: "It would take only 1.3 copies of these Ranches to completely cover the smallest US state!",
             legend: "Rhode Island (1,034 sq mi)"
         },
         'denver': {
             title: "Ranches vs. Denver",
-            description: "The combined ranches cover 807 square miles of land. This represents **5.2 times larger** than the entire municipal land area of the City and County of Denver (155 sq mi). While Denver hosts over 700,000 residents and a bustling downtown, this combined territory is preserved for wilderness corridors, bighorn sheep, and critical grasslands.",
-            funFact: "You could fit more than five copies of the entire city of Denver inside the borders of these two ranches!",
+            description: "The combined Ranches cover 807 square miles of land. This represents **5.2 times larger** than the entire municipal land area of the City and County of Denver (155 sq mi). While Denver hosts over 700,000 residents and a bustling downtown, this combined territory is preserved for wilderness corridors, bighorn sheep, and critical grasslands.",
+            funFact: "You could fit more than five copies of the entire city of Denver inside the borders of these two Ranches!",
             legend: "Denver (155 sq mi)"
         },
         'nyc': {
             title: "Ranches vs. New York City",
-            description: "The combined ranches span 807 square miles, which is **2.7 times larger** than the land area of all five boroughs of New York City combined (302 sq mi). While NYC holds one of the densest human populations on Earth, these ranches hold one of the densest bat populations.",
-            funFact: "You could fit nearly three New York Cities inside the borders of these two New Mexico ranches!",
+            description: "The combined Ranches span 807 square miles, which is **2.7 times larger** than the land area of all five boroughs of New York City combined (302 sq mi). While NYC holds one of the densest human populations on Earth, these Ranches hold one of the densest bat populations.",
+            funFact: "You could fit nearly three New York Cities inside the borders of these two New Mexico Ranches!",
             legend: "New York City (302 sq mi)"
         },
         'yellowstone': {
             title: "Ranches vs. Yellowstone",
-            description: "Yellowstone National Park is one of the largest national parks in the United States, spanning 3,471 square miles. The Ladder and Armendaris ranches combined (807 sq mi) cover an area equal to **23%** of Yellowstone, illustrating the massive scale of private land conservation.",
-            funFact: "These two ranches together are equivalent to nearly a quarter of the entire Yellowstone National Park!",
+            description: "Yellowstone National Park is one of the largest national parks in the United States, spanning 3,471 square miles. The Ladder and Armendaris Ranches combined (807 sq mi) cover an area equal to **23%** of Yellowstone, illustrating the massive scale of private land conservation.",
+            funFact: "These two Ranches together are equivalent to nearly a quarter of the entire Yellowstone National Park!",
             legend: "Yellowstone National Park (3,471 sq mi)"
         },
         'sf-bay-area': {
             title: "Ranches vs. SF Bay Area",
-            description: "The 9-county San Francisco Bay Area covers approximately 6,900 square miles of land. The ranches combined represent about **12%** of this massive region, which is larger than the land area of San Francisco, Marin, and San Mateo counties combined.",
-            funFact: "While the SF Bay Area is home to 7.7 million people, these ranches preserve a comparable, contiguous corridor of wilderness for wild species.",
+            description: "The 9-county San Francisco Bay Area covers approximately 6,900 square miles of land. The Ranches combined represent about **12%** of this massive region, which is larger than the land area of San Francisco, Marin, and San Mateo counties combined.",
+            funFact: "While the SF Bay Area is home to 7.7 million people, these Ranches preserve a comparable, contiguous corridor of wilderness for wild species.",
             legend: "SF Bay Area (6,900 sq mi)"
         },
         'new-mexico': {
@@ -68,6 +68,13 @@ document.addEventListener('DOMContentLoaded', () => {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 20
+    }).addTo(map);
+
+    // Add native scale control (imperial on top, metric on bottom, positioned bottom-left)
+    L.control.scale({
+        imperial: true,
+        metric: true,
+        position: 'bottomleft'
     }).addTo(map);
 
     // Variables to hold map layer references
