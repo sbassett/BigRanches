@@ -1000,3 +1000,189 @@ a:hover {
         padding: 1.5rem;
     }
 }
+
+/* ==========================================================================
+   TNC RCN MAP SECTION
+   ========================================================================== */
+.rcn-wrapper {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 3rem;
+    padding: 3rem;
+    align-items: stretch;
+}
+
+.rcn-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.rcn-info h3 {
+    font-size: 1.8rem;
+    color: var(--color-text);
+}
+
+.rcn-intro {
+    color: var(--color-text-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.rcn-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.rcn-stat-card {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--color-card-border);
+    padding: 1.2rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    transition: var(--transition-smooth);
+}
+
+.rcn-stat-card:hover {
+    border-color: rgba(40, 140, 70, 0.25);
+    background: rgba(40, 140, 70, 0.02);
+    transform: translateY(-2px);
+}
+
+.rcn-stat-card .value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--color-sage);
+}
+
+.rcn-stat-card:nth-child(even) .value {
+    color: var(--color-terracotta);
+}
+
+.rcn-stat-card .label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.rcn-stat-card .subtext {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+.rcn-legend {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid var(--color-card-border);
+    padding: 1.2rem;
+    border-radius: 16px;
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.rcn-legend h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-text);
+}
+
+.legend-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.4;
+}
+
+.legend-item strong {
+    color: var(--color-text);
+}
+
+.color-swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 0.2rem;
+}
+
+.color-swatch.resilient {
+    background-color: #38a800; /* TNC Resilient Green */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.color-swatch.corridor {
+    background-color: #98e600; /* TNC Flow Corridor Light Green */
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.rcn-map-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.rcn-map-controls {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.rcn-toggle-btn {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--color-text-muted);
+    padding: 0.6rem 1.2rem;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.rcn-toggle-btn:hover {
+    border-color: rgba(0, 0, 0, 0.2);
+    color: var(--color-text);
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.rcn-toggle-btn.active {
+    background: var(--color-sage-glow);
+    border-color: var(--color-sage);
+    color: var(--color-sage);
+}
+
+.rcn-map-display {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-card-border);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    flex-grow: 1;
+    min-height: 500px;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+}
+
+@media (max-width: 1024px) {
+    .rcn-wrapper {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 2.5rem;
+    }
+    
+    .rcn-map-display {
+        min-height: 400px;
+    }
+}

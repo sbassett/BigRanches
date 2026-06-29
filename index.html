@@ -27,7 +27,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     
     <!-- Custom Project Styling -->
-    <link rel="stylesheet" href="styles.css?v=16">
+    <link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
 
@@ -127,8 +127,74 @@
         </div>
     </section>
 
+    <!-- TNC RESILIENT AND CONNECTED NETWORK (RCN) SECTION -->
+    <section id="rcn-resilience" class="section alt-bg">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Climate Resilience</span>
+                <h2>The Resilient & Connected Network</h2>
+                <p>The Nature Conservancy's RCN dataset maps the continental network of lands and waters best positioned to sustain biodiversity as temperatures rise. Explore the climate resilience of these New Mexico wildlands.</p>
+            </div>
+
+            <div class="rcn-wrapper glass-card">
+                <div class="rcn-info">
+                    <h3>Ecological Connectivity</h3>
+                    <p class="rcn-intro">
+                        TNC's modeling designates areas as part of the Resilient and Connected Network based on geophysical diversity, local connectivity, and climate corridors. Together, the Ladder and Armendaris form a critical southwestern stronghold.
+                    </p>
+                    
+                    <div class="rcn-stats-grid">
+                        <div class="rcn-stat-card">
+                            <span class="value">92%</span>
+                            <span class="label">RCN Protection</span>
+                            <span class="subtext">Over 475,000 acres fall within TNC's designated national network.</span>
+                        </div>
+                        <div class="rcn-stat-card">
+                            <span class="value">4,200 ft</span>
+                            <span class="label">Elevation Flow</span>
+                            <span class="subtext">Ladder's vertical range enables uphill species migration.</span>
+                        </div>
+                        <div class="rcn-stat-card">
+                            <span class="value">70+ mi</span>
+                            <span class="label">Riparian Corridors</span>
+                            <span class="subtext">Securing crucial water routes along the Rio Grande and Las Animas.</span>
+                        </div>
+                        <div class="rcn-stat-card">
+                            <span class="value">Key Node</span>
+                            <span class="label">Climate Pinch Point</span>
+                            <span class="subtext">A vital bottleneck corridor connecting mountains to desert basins.</span>
+                        </div>
+                    </div>
+
+                    <div class="rcn-legend">
+                        <h4>RCN Layer Colors</h4>
+                        <div class="legend-item">
+                            <span class="color-swatch resilient"></span>
+                            <span><strong>Climate Resilient Areas:</strong> Lands with high microclimate diversity that buffer species.</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="color-swatch corridor"></span>
+                            <span><strong>Climate Flow Corridors:</strong> Natural valleys and corridors for species movement.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rcn-map-container">
+                    <div class="rcn-map-controls">
+                        <button class="rcn-toggle-btn active" data-mode="rcn">RCN Overlay</button>
+                        <button class="rcn-toggle-btn" data-mode="reference">Reference Map</button>
+                        <button class="rcn-toggle-btn" data-mode="satellite">Aerial Imagery</button>
+                    </div>
+                    <div class="rcn-map-display">
+                        <div id="rcn-map" style="width: 100%; height: 100%; z-index: 1;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- RANCH PROFILES (THE ECOLOGICAL ANCHORS) -->
-    <section id="ranch-profiles" class="section alt-bg">
+    <section id="ranch-profiles" class="section">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Sanctuary Profiles</span>
@@ -211,7 +277,7 @@
     </section>
 
     <!-- THREATS & DEVELOPMENT PRESSURES (PITCH SECTION) -->
-    <section id="threats-pressures" class="section">
+    <section id="threats-pressures" class="section alt-bg">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Urgency & Pressures</span>
@@ -257,7 +323,7 @@
     </section>
 
     <!-- SPECIES CONSERVATION GRID -->
-    <section id="conservation-grid" class="section alt-bg">
+    <section id="conservation-grid" class="section">
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Conservation Impact</span>
@@ -494,9 +560,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     
     <!-- Georeferenced Coordinates Data (Loaded synchronously to prevent CORS blocks) -->
-    <script src="boundaries.js?v=16"></script>
+    <script src="boundaries.js?v=17"></script>
     
     <!-- Main JavaScript Logic -->
-    <script src="script.js?v=16"></script>
+    <script src="script.js?v=17"></script>
 </body>
 </html>

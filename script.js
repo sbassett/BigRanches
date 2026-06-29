@@ -229,4 +229,106 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    /* ==========================================================================
+       5. TNC RESILIENT & CONNECTED NETWORK (RCN) MAP LOGIC
+       ========================================================================== */
+    const rcnMapContainer = document.getElementById('rcn-map');
+    if (rcnMapContainer) {
+        // Initialize RCN Map
+        const rcnMap = L.map(rcnMapContainer, {
+            zoomControl: true,
+            scrollWheelZoom: false,
+            dragging: !L.Browser.mobile,
+            tap: !L.Browser.mobile
+        });
+
+        // Voyager Reference Base Layer
+        const voyagerLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 20
+        });
+
+        // TNC Customized Simple RCN Layer
+        const rcnLayer = L.tileLayer('https://tiles.arcgis.com/tiles/F7DSX1DSNSiWmOqh/arcgis/rest/services/Resilient_and_Connected_Network_TNC_Customized_Simple/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '&copy; <a href="https://www.nature.org">The Nature Conservancy (TNC)</a>',
+            maxZoom: 15,
+            opacity: 0.7
+        });
+
+        // Satellite Base Layer
+        const satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
+            maxZoom: 19
+        });
+
+        // Default: Load Voyager + RCN Layer
+        voyagerLayer.addTo(rcnMap);
+        rcnLayer.addTo(rcnMap);
+
+        // Scale Control
+        L.control.scale({
+            imperial: true,
+            metric: false,
+            position: 'bottomleft'
+        }).addTo(rcnMap);
+
+        // Fetch NM features from BOUNDARIES_DATA (parent_id: 'new-mexico')
+        const nmFeatures = BOUNDARIES_DATA.features.filter(f => f.properties.parent_id === 'new-mexico');
+        
+        // Define ranch overlay style
+        const ranchOverlay = L.geoJSON(nmFeatures, {
+            style: {
+                color: 'hsl(135, 45%, 32%)', // Spring Green
+                fillColor: 'hsl(135, 45%, 32%)',
+                fillOpacity: 0.12,
+                weight: 2.5,
+                dashArray: '5, 5'
+            }
+        });
+
+        // Add tooltips
+        ranchOverlay.eachLayer(layer => {
+            const name = layer.feature.properties.name;
+            layer.bindTooltip(name, {
+                permanent: true,
+                direction: 'center',
+                className: 'ranch-tooltip'
+            });
+        });
+
+        ranchOverlay.addTo(rcnMap);
+
+        // Zoom map to fit the boundaries
+        rcnMap.fitBounds(ranchOverlay.getBounds(), {
+            padding: [30, 30]
+        });
+
+        // Basemap toggles
+        const toggleButtons = document.querySelectorAll('.rcn-toggle-btn');
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                toggleButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const mode = btn.getAttribute('data-mode');
+
+                // Clear all base layers
+                if (rcnMap.hasLayer(voyagerLayer)) rcnMap.removeLayer(voyagerLayer);
+                if (rcnMap.hasLayer(rcnLayer)) rcnMap.removeLayer(rcnLayer);
+                if (rcnMap.hasLayer(satelliteLayer)) rcnMap.removeLayer(satelliteLayer);
+
+                // Add active layer
+                if (mode === 'rcn') {
+                    voyagerLayer.addTo(rcnMap);
+                    rcnLayer.addTo(rcnMap);
+                } else if (mode === 'reference') {
+                    voyagerLayer.addTo(rcnMap);
+                } else if (mode === 'satellite') {
+                    satelliteLayer.addTo(rcnMap);
+                }
+            });
+        });
+    }
+
 });
