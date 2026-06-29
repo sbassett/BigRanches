@@ -4,6 +4,18 @@ document.addEventListener('DOMContentLoaded', () => {
        1. DATA & PITCH CONTENT DEFINITION
        ========================================================================== */
     const comparisonData = {
+        'washington-dc': {
+            title: "Ranches vs. Washington, DC",
+            description: "The combined Ranches cover about 807 square miles of land. This represents **11.8 times** the entire land area of Washington, DC (68.3 sq mi). The federal capital district could fit inside the Ranches' borders over eleven times over.",
+            funFact: "The Ladder Ranch alone (244 sq mi) is more than three and a half times the size of Washington, DC!",
+            legend: "Washington, DC (68 sq mi)"
+        },
+        'des-moines': {
+            title: "Ranches vs. Des Moines",
+            description: "The combined Ranches span 807 square miles, which is nearly **9 times** the size of the city of Des Moines, Iowa (90.6 sq mi). The entire capital city and its municipal borders represent a fraction of this protected wilderness.",
+            funFact: "The Armendaris Ranch alone (562 sq mi) is more than six times the size of the city of Des Moines!",
+            legend: "Des Moines (90 sq mi)"
+        },
         'rhode-island': {
             title: "Ranches vs. Rhode Island",
             description: "The combined Ranches cover about 807 square miles of land. This represents approximately <strong>78%</strong> of the entire land area of Rhode Island (1,034 sq mi). Rather than housing over 1 million residents, this territory is dedicated to pristine habitat, bison herds, and endangered species recovery.",
@@ -63,8 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tap: !L.Browser.mobile
     }).setView([33.22, -107.25], 8);
 
-    // Add CartoDB Dark Matter tiles to match twilight aesthetic
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    // Add CartoDB Voyager tiles for a warm spring day aesthetic
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         maxZoom: 20
@@ -106,9 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (feature.properties.type === 'translated-ranch') {
                 const layer = L.geoJSON(feature, {
                     style: {
-                        color: 'hsl(135, 22%, 52%)', // Sage Green
-                        fillColor: 'hsl(135, 22%, 52%)',
-                        fillOpacity: 0.35,
+                        color: 'hsl(135, 45%, 32%)', // Spring Green
+                        fillColor: 'hsl(135, 45%, 32%)',
+                        fillOpacity: 0.18,
                         weight: 2,
                         dashArray: '5, 5'
                     }
@@ -146,8 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Recalculate size to handle any initial layout sizing lag
     map.invalidateSize();
 
-    // Set default active comparison (Rhode Island)
-    switchComparison('rhode-island');
+    // Set default active comparison (Washington, DC)
+    switchComparison('washington-dc');
 
     /* ==========================================================================
        3. CONTROLS & INTERACTIVE TABS LOGIC

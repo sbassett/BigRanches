@@ -85,6 +85,24 @@ denver_raw = [
     [-105.10, 39.80]
 ]
 
+des_moines_raw = [
+    [-93.71, 41.65],
+    [-93.51, 41.65],
+    [-93.51, 41.53],
+    [-93.71, 41.53],
+    [-93.71, 41.65]
+]
+
+washington_dc_raw = [
+    [-77.041, 38.996],
+    [-76.909, 38.892],
+    [-77.042, 38.792],
+    [-77.045, 38.845],
+    [-77.090, 38.895],
+    [-77.120, 38.935],
+    [-77.041, 38.996]
+]
+
 yellowstone_raw = [
     [-111.15, 45.02],
     [-109.83, 45.02],
@@ -150,6 +168,8 @@ def translate_ranches_to_target(comp_coords):
 
 # Compile comparison datasets
 comparisons = {
+    "washington-dc": {"coords": washington_dc_raw, "name": "Washington, DC", "area": 68},
+    "des-moines": {"coords": des_moines_raw, "name": "Des Moines", "area": 90},
     "rhode-island": {"coords": rhode_island_raw, "name": "Rhode Island", "area": 1034},
     "nyc": {"coords": nyc_raw, "name": "New York City", "area": 302},
     "denver": {"coords": denver_raw, "name": "Denver", "area": 155},
